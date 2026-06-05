@@ -1,38 +1,17 @@
-import { useQuery } from "@tanstack/react-query";
-import axios from "./api/axios";
-
-interface HealthResponse {
-  success: boolean;
-  data: {
-    status: string;
-    db: string;
-    timestamp: string;
-  };
-  message: string;
-}
+import { BrowserRouter } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
+import { SidebarProvider } from "./contexts/SidebarContext";
+import AppRouter from "./routes/AppRouter";
 
 function App() {
-  const { data, isLoading, error } = useQuery<HealthResponse>({
-    queryKey: ["health"],
-    queryFn: async () => {
-      const res = await axios.get("/health");
-      return res.data;
-    },
-    retry: 1,
-  });
-
-  if (isLoading) {
-    return <div>Connecting...</div>;
-  }
-
-  if (error || data?.data.db === "error") {
-    return <div style={{ color: "red" }}>❌ Cannot reach backend</div>;
-  }
-
   return (
-    <div style={{ color: "green" }}>
-      ✅ System Connected (db: {data?.data.db})
-    </div>
+    <BrowserRouter>
+      <AuthProvider>
+        <SidebarProvider>
+          <AppRouter />
+        </SidebarProvider>
+      </AuthProvider>
+    </BrowserRouter>
   );
 }
 

@@ -1,10 +1,22 @@
 import { PrismaClient } from "@prisma/client";
+import bcrypt from "bcryptjs";
 
 const prisma = new PrismaClient();
 
 async function main() {
-  await prisma.healthCheck.create({ data: {} });
-  console.log("Seeded health check record");
+  const passwordHash = await bcrypt.hash("password123", 10);
+
+  await prisma.user.upsert({
+    where: { email: "demo@test.com" },
+    update: {},
+    create: {
+      name: "Demo QA",
+      email: "demo@test.com",
+      passwordHash,
+    },
+  });
+
+  console.log("✅ Created demo user (demo@test.com / password123)");
 }
 
 main()
