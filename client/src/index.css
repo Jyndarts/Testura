@@ -1,0 +1,48 @@
+@import "tailwindcss";
+
+@theme {
+  --font-display: "Space Grotesk", sans-serif;
+  --font-body: "Inter", sans-serif;
+  --font-mono: "JetBrains Mono", monospace;
+
+  --color-ink: #18181B;
+  --color-paper: #FAFAF9;
+  --color-card: #FFFFFF;
+  --color-line: #E7E5E4;
+  --color-muted: #78716C;
+  --color-pass: #16A34A;
+  --color-fail: #DC2626;
+  --color-blocked: #D97706;
+  --color-running: #2563EB;
+  --color-neutral: #D6D3D1;
+}
+
+:root {
+  --ink: #18181B;
+  --paper: #FAFAF9;
+  --card: #FFFFFF;
+  --line: #E7E5E4;
+  --muted: #78716C;
+  --pass: #16A34A;
+  --fail: #DC2626;
+  --blocked: #D97706;
+  --running: #2563EB;
+  --neutral: #D6D3D1;
+}
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Inter", sans-serif;
+}
+
+@keyframes pulse-running {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.35; }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .animate-running {
+    animation: pulse-running 2s ease-in-out infinite;
+  }
+}
