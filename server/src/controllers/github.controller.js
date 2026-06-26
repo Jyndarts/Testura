@@ -4,6 +4,7 @@ const TestRun = require('../models/testRun.model');
 const TestExecution = require('../models/testExecution.model');
 const githubService = require('../services/github.service');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const connectRepo = async (req, res, next) => {
   try {
@@ -189,4 +190,10 @@ const syncRunResult = async (req, res, next) => {
   }
 };
 
-module.exports = { connectRepo, getConnection, disconnect, pushBugAsIssue, syncRunResult };
+module.exports = {
+  connectRepo: asyncHandler(connectRepo),
+  getConnection: asyncHandler(getConnection),
+  disconnect: asyncHandler(disconnect),
+  pushBugAsIssue: asyncHandler(pushBugAsIssue),
+  syncRunResult: asyncHandler(syncRunResult),
+};

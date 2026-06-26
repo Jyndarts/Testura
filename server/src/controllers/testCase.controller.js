@@ -1,5 +1,6 @@
 const TestCase = require('../models/testCase.model');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const createTestCase = async (req, res, next) => {
   try {
@@ -90,9 +91,9 @@ const deleteTestCase = async (req, res, next) => {
 };
 
 module.exports = {
-  createTestCase,
-  getTestCases,
-  getTestCase,
-  updateTestCase,
-  deleteTestCase,
+  createTestCase: asyncHandler(createTestCase),
+  getTestCases: asyncHandler(getTestCases),
+  getTestCase: asyncHandler(getTestCase),
+  updateTestCase: asyncHandler(updateTestCase),
+  deleteTestCase: asyncHandler(deleteTestCase),
 };

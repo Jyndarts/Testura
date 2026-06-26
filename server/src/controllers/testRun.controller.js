@@ -1,5 +1,6 @@
 const TestRun = require('../models/testRun.model');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const createRun = async (req, res, next) => {
   try {
@@ -129,10 +130,10 @@ const deleteRun = async (req, res, next) => {
 };
 
 module.exports = {
-  createRun,
-  listRuns,
-  getRun,
-  updateRun,
-  cloneRun,
-  deleteRun,
+  createRun: asyncHandler(createRun),
+  listRuns: asyncHandler(listRuns),
+  getRun: asyncHandler(getRun),
+  updateRun: asyncHandler(updateRun),
+  cloneRun: asyncHandler(cloneRun),
+  deleteRun: asyncHandler(deleteRun),
 };

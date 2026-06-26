@@ -1,6 +1,7 @@
 const Project = require('../models/project.model');
 const User = require('../models/user.model');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const createProject = async (req, res, next) => {
   try {
@@ -102,11 +103,11 @@ const removeMember = async (req, res, next) => {
 };
 
 module.exports = {
-  createProject,
-  getMyProjects,
-  getProject,
-  updateProject,
-  deleteProject,
-  addMember,
-  removeMember,
+  createProject: asyncHandler(createProject),
+  getMyProjects: asyncHandler(getMyProjects),
+  getProject: asyncHandler(getProject),
+  updateProject: asyncHandler(updateProject),
+  deleteProject: asyncHandler(deleteProject),
+  addMember: asyncHandler(addMember),
+  removeMember: asyncHandler(removeMember),
 };

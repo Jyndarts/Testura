@@ -3,6 +3,7 @@ const TestRun = require('../models/testRun.model');
 const TestExecution = require('../models/testExecution.model');
 const Bug = require('../models/bug.model');
 const { success } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const getDashboard = async (req, res, next) => {
   try {
@@ -125,4 +126,4 @@ const getDashboard = async (req, res, next) => {
   }
 };
 
-module.exports = { getDashboard };
+module.exports = { getDashboard: asyncHandler(getDashboard) };

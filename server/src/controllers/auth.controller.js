@@ -3,6 +3,7 @@ const jwt = require('jsonwebtoken');
 const User = require('../models/user.model');
 const env = require('../config/env');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const register = async (req, res, next) => {
   try {
@@ -73,4 +74,8 @@ const getMe = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, getMe };
+module.exports = {
+  register: asyncHandler(register),
+  login: asyncHandler(login),
+  getMe: asyncHandler(getMe),
+};

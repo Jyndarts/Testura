@@ -2,6 +2,7 @@ const TestRun = require('../models/testRun.model');
 const TestCase = require('../models/testCase.model');
 const TestExecution = require('../models/testExecution.model');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const startRun = async (req, res, next) => {
   try {
@@ -42,6 +43,15 @@ const startRun = async (req, res, next) => {
 
 const getRunExecutions = async (req, res, next) => {
   try {
+    const run = await TestRun.findOne({
+      _id: req.params.runId,
+      project: req.project._id,
+    });
+
+    if (!run) {
+      return res.status(404).json(error('Test run not found'));
+    }
+
     const executions = await TestExecution.find({
       testRun: req.params.runId,
     }).populate('testCase');
@@ -125,8 +135,8 @@ const completeRun = async (req, res, next) => {
 };
 
 module.exports = {
-  startRun,
-  getRunExecutions,
-  updateExecution,
-  completeRun,
+  startRun: asyncHandler(startRun),
+  getRunExecutions: asyncHandler(getRunExecutions),
+  updateExecution: asyncHandler(updateExecution),
+  completeRun: asyncHandler(completeRun),
 };

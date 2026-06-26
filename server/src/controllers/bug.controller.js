@@ -4,6 +4,7 @@ const Counter = require('../models/counter.model');
 const TestCase = require('../models/testCase.model');
 const TestRun = require('../models/testRun.model');
 const { success, error } = require('../utils/apiResponse');
+const asyncHandler = require('../utils/asyncHandler');
 
 const create = async (req, res, next) => {
   try {
@@ -300,11 +301,11 @@ const exportReport = async (req, res, next) => {
 };
 
 module.exports = {
-  create,
-  list,
-  get,
-  update,
-  changeStatus,
-  remove,
-  exportReport,
+  create: asyncHandler(create),
+  list: asyncHandler(list),
+  get: asyncHandler(get),
+  update: asyncHandler(update),
+  changeStatus: asyncHandler(changeStatus),
+  remove: asyncHandler(remove),
+  exportReport: asyncHandler(exportReport),
 };
